@@ -1,4 +1,4 @@
-# Endian parser
+# Endian reader
 
 Simple helper for reading from buffer with specified (ahead of time) endian.
 
