@@ -74,6 +74,24 @@ Reader.prototype.readInt64 = function readInt64(buf, offset) {
   }
 };
 
+Reader.prototype.readHalf = function readHalf(buf, offset) {
+  if (this.word === 2)
+    return this.readInt8(buf, offset);
+  else if (this.word === 4)
+    return this.readInt16(buf, offset);
+  else
+    return this.readInt32(buf, offset);
+};
+
+Reader.prototype.readUHalf = function readUHalf(buf, offset) {
+  if (this.word === 2)
+    return this.readUInt8(buf, offset);
+  else if (this.word === 4)
+    return this.readUInt16(buf, offset);
+  else
+    return this.readUInt32(buf, offset);
+};
+
 Reader.prototype.readWord = function readWord(buf, offset) {
   if (this.word === 1)
     return this.readInt8(buf, offset);
