@@ -1,13 +1,20 @@
-function Reader(endian) {
+function Reader(endian, word) {
   this.endian = null;
+  this.word = 4;
 
   if (endian)
     this.setEndian(endian);
+  if (word)
+    this.setWord(word);
 };
 module.exports = Reader;
 
 Reader.prototype.setEndian = function setEndian(endian) {
   this.endian = /le|lsb|little/i.test(endian) ? 'le' : 'be';
+};
+
+Reader.prototype.setWord = function setWord(word) {
+  this.word = word;
 };
 
 Reader.prototype.readUInt8 = function readUInt8(buf, offset) {
@@ -65,4 +72,26 @@ Reader.prototype.readInt64 = function readInt64(buf, offset) {
     var b = this.readUInt32(buf, offset + 4);
     return b + a * 0x100000000;
   }
+};
+
+Reader.prototype.readWord = function readWord(buf, offset) {
+  if (this.word === 1)
+    return this.readInt8(buf, offset);
+  else if (this.word === 2)
+    return this.readInt16(buf, offset);
+  else if (this.word === 4)
+    return this.readInt32(buf, offset);
+  else
+    return this.readInt64(buf, offset);
+};
+
+Reader.prototype.readUWord = function readUWord(buf, offset) {
+  if (this.word === 1)
+    return this.readUInt8(buf, offset);
+  else if (this.word === 2)
+    return this.readUInt16(buf, offset);
+  else if (this.word === 4)
+    return this.readUInt32(buf, offset);
+  else
+    return this.readUInt64(buf, offset);
 };

@@ -10,6 +10,7 @@ describe('Endian reader', function() {
     assert.equal(r.readInt16(buf, 0), 0x0201);
     assert.equal(r.readInt32(buf, 0), 0x04030201);
     assert.equal(r.readInt64(buf, 0), 0x0807060504030201);
+    assert.equal(r.readWord(buf, 0), 0x04030201);
   });
 
   it('should read bytes in BE', function() {
@@ -20,5 +21,6 @@ describe('Endian reader', function() {
     assert.equal(r.readInt16(buf, 0), 0x0102);
     assert.equal(r.readInt32(buf, 0), 0x01020304);
     assert.equal(r.readInt64(buf, 0), 0x0102030405060708);
+    assert.equal(r.readWord(buf, 0), 0x01020304);
   });
 });

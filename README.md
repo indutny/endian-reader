@@ -8,13 +8,15 @@ Simple helper for reading from buffer with specified (ahead of time) endian.
 var Reader = require('endian-reader');
 
 var buf = new Buffer('0102030405060708', 'hex');
-var r = new Reader('le');  // le, little or lsb, otherwise big endian will be
-                           // used.
+var r = new Reader('le', 4);  // le, little or lsb, otherwise big endian will be
+                              // used.
+                              // Second argument is a word size
 
 assert.equal(r.readInt8(buf, 0), 0x1);
 assert.equal(r.readInt16(buf, 0), 0x0201);
 assert.equal(r.readInt32(buf, 0), 0x04030201);
 assert.equal(r.readInt64(buf, 0), 0x0807060504030201);
+assert.equal(r.readWord(buf, 0), 0x04030201);
 ```
 
 #### LICENSE
